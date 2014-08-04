@@ -77,7 +77,6 @@ namespace CopyCalibreCovers
 			InitializeComponent();
 			tbInputPath.ApplyDragDrop();
 			tbOutputPath.ApplyDragDrop();
-			btnGo.Click += Event_Go;
 			BindingsReset();
 		}
 		void BindingsClear()
@@ -106,7 +105,7 @@ namespace CopyCalibreCovers
 			Options.Libraries.RemoveAt(id);
 			BindingsReset();
 		}
-		void BtnGoClick(object sender, EventArgs e)
+		void BtnRefreshBindings(object sender, EventArgs e)
 		{
 			BindingsClear();
 			BindingsReset();

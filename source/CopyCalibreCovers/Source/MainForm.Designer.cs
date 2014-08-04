@@ -66,7 +66,7 @@ namespace CopyCalibreCovers
 			this.btnGo.TabIndex = 6;
 			this.btnGo.Text = "Refresh Binding";
 			this.btnGo.UseVisualStyleBackColor = true;
-			this.btnGo.Click += new System.EventHandler(this.BtnGoClick);
+			this.btnGo.Click += new System.EventHandler(this.BtnRefreshBindings);
 			// 
 			// button1
 			// 
