@@ -1,7 +1,7 @@
 ﻿/* oio * 7/25/2014 * Time: 7:23 PM */
 using System;
 using System.Collections.Generic;
-using System.Cor3.Data.Engine;
+//using System.Cor3.Data.Engine;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -80,7 +80,7 @@ namespace CalibreData.Models
 		
 		void GetData(string tableName, string query)
 		{
-			using (var db = new SQLiteDb(Path.Combine(LibraryPath.FullName, "metadata.db")))
+			using (var db = new System.Cor3.Data.Engine.SQLiteDb(Path.Combine(LibraryPath.FullName, "metadata.db")))
 			using (var c = db.Connection)
 			using (var a = db.Adapter)
 			using (var cmd = a.SelectCommand = new SQLiteCommand(query, c))
@@ -103,10 +103,10 @@ namespace CalibreData.Models
 		
 		void CheckError() { if (this.error != null) throw error; }
 		
-		public BookManager(string subPath)
+		public BookManager(string root, string subPath)
 		{
 			this.subPath = subPath;
-			this.LibraryPath = new DirectoryInfo(System.IO.Path.Combine("f:/horde/library",SubPath));
+			this.LibraryPath = new DirectoryInfo(System.IO.Path.Combine(root,SubPath));
 			if (!LibraryPath.Exists) throw new DirectoryNotFoundException();
 			this.Started = DateTime.Now.ToBinary();
 			// 

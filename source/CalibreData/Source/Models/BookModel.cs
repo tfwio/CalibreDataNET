@@ -5,7 +5,7 @@ using System.Linq;
 using CalibreData.Models;
 namespace CalibreData.Models
 {
-	// The Cleve "Backster Effect"
+	// The Cleve "Backster Effect" (Clive?
 	// book: "Get the life you want" --- subj: Mesmer-ism
 	
 	public class BookModel

@@ -9,6 +9,25 @@ namespace CalibreData
 {
 	public class CalibreImageWriterOptions
 	{
+		/// <summary>
+		/// </summary>
+		public ThreadPriority ProcessPriority
+		{
+			get;
+			set;
+		}
+		
+		/// <summary>
+		/// Skips copying a particular image if it allready exists.
+		/// </summary>
+		public bool OverwriteIfExist {
+			get;
+			set;
+		}
+		
+		/// <summary>
+		/// This option deletes all images before all images are revenerated.
+		/// </summary>
 		public bool DeleteImagesBeforeCopy {
 			get;
 			set;

@@ -9,7 +9,8 @@ namespace CalibreData
 {
 	
 	/// <summary>
-	/// this class must be given a safe context in order to be safe: "use wisely."
+	/// <para>Process a single library.</para>
+	/// <para>must be given a safe context in order to be safe: "use wisely."</para>
 	/// </summary>
 	public class CalibreImageWriter /* : IDisposable*/ // http://stackoverflow.com/questions/3873683/best-way-to-report-thread-progress ;-//
 	{
@@ -30,14 +31,17 @@ namespace CalibreData
 		
 		void ListMetainfo()
 		{
-			
 		}
 		
-		public CalibreImageWriter (BookManager manager, DirectoryInfo destination, CalibreImageWriterOptions options)
+		public CalibreImageWriter (BookManager manager,
+		                           DirectoryInfo destination,
+		                           CalibreImageWriterOptions options
+		                          )
 		{
 			Options = options;
 			this.manager = manager;
 			this.destination = destination;
+			
 			m_Thread = new Thread(Run);
 			Counter = manager.Master.Count;
 		}
@@ -53,7 +57,7 @@ namespace CalibreData
 		}
 		public void Start()
 		{
-			m_Thread.Priority = ThreadPriority.Lowest;
+			m_Thread.Priority = Options.ProcessPriority;
 			m_Thread.Start();
 		}
 
@@ -86,7 +90,17 @@ namespace CalibreData
 				string outputFile = Path.Combine( destination.FullName, string.Format( coverImageFilter, book.id ) );
 				
 				if (HasCb) { Options.Callback(source,outputFile); }
-				if (!File.Exists(outputFile) && Options.UseDefulatCallback && Options.DefaultCallback!=null) Options.DefaultCallback(source,outputFile);
+				
+				if (File.Exists(outputFile))
+				{
+					if (Options.OverwriteIfExist && Options.UseDefulatCallback && Options.DefaultCallback!=null)
+						Options.DefaultCallback(source,outputFile);
+				}
+				else
+				{
+					if (Options.UseDefulatCallback && Options.DefaultCallback!=null)
+						Options.DefaultCallback(source,outputFile);
+				}
 				
 				OnProgress(new ProgressEventArgs(i,Counter));
 			}

@@ -1,8 +1,9 @@
 ﻿/* oio * 7/27/2014 * Time: 11:08 PM
  */
 using System;
+using System.IO;
 using System.Windows.Forms;
-
+using System.Linq;
 namespace CopyCalibreCovers
 {
 	

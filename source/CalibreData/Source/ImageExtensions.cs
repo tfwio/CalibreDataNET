@@ -36,7 +36,7 @@ namespace CalibreData
 		{
 			var renderBitmap = new Bitmap((int)targetSize.X, (int)targetSize.Y);
 			using (var g = Graphics.FromImage(renderBitmap)) {
-				g.SetQuality();
+				g.SetQuality(); // defaults to HQ-smoothing with HQ-Bicubic-interpolation
 				g.Clear(bg);
 				g.DrawImage(source, 0, 0, targetSize.X, targetSize.Y);
 			}

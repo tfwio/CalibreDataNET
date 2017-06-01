@@ -2,14 +2,12 @@
 using System;
 using System.Drawing;
 using CalibreData;
+using CalibreData.Models;
 namespace CopyCalibreCovers
 {
 	public class CoverSettings
 	{
-		public LibNode SelectedLibrary {
-			get;
-			set;
-		}
+		public LibNode SelectedLibrary { get; set; }
 
 		public LibraryCollection Libraries {
 			get { return libraries; }
@@ -17,26 +15,14 @@ namespace CopyCalibreCovers
 		} LibraryCollection libraries;
 
 		public FloatPoint CoverSize {
-			get {
-				return coverSize;
-			}
-			set {
-				coverSize = value;
-			}
-		}
-
-		FloatPoint coverSize = new FloatPoint(200, 320);
+			get { return coverSize; }
+			set { coverSize = value; }
+		} FloatPoint coverSize = new FloatPoint(200, 320);
 
 		public long JpegQuality {
-			get {
-				return jpegQuality;
-			}
-			set {
-				jpegQuality = value;
-			}
-		}
-
-		long jpegQuality = 90;
+			get { return jpegQuality; }
+			set { jpegQuality = value; }
+		} long jpegQuality = 90;
 
 		public void MakeJpegCover(string src, string dst)
 		{
