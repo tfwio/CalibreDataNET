@@ -302,13 +302,8 @@ namespace System.Cor3.Data
 				using (TAdapter A = S(DbOp.Insert, queryInsert, C))
 				{
 					C.Open();
-					try
-					{
-						if (A.InsertCommand != null) A.InsertCommand.ExecuteNonQuery();
-					}
-					catch (Exception e) {
-						System.Diagnostics.Debug.Assert(false,"Insert stement failed.");
-					}
+					try { if (A.InsertCommand != null) A.InsertCommand.ExecuteNonQuery(); }
+					catch (Exception) { System.Diagnostics.Debug.Assert(false,"Insert stement failed."); }
 					try
 					{
 						if ((A.SelectCommand != null) && !string.IsNullOrEmpty(A.SelectCommand.CommandText))
@@ -353,7 +348,7 @@ namespace System.Cor3.Data
 							Fill(A,ds,table);
 						}
 					}
-					catch(Exception error)
+          catch (Exception) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
 					{
 						#if DEBUG
 						System.Diagnostics.Debug.Print("Select Command from within a DELETE command.");
@@ -416,7 +411,7 @@ namespace System.Cor3.Data
 						A.UpdateCommand.ExecuteNonQuery();
 						Fill(A,ds,table);
 					}
-					catch (Exception e)
+          catch (Exception) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
 					{
 						#if DEBUG
 						System.Diagnostics.Debug.Print("Update ERROR: '{0}'",A.UpdateCommand.CommandText);
@@ -434,7 +429,7 @@ namespace System.Cor3.Data
 							Fill(A,ds,table);
 						}
 					}
-					catch (Exception e)
+					catch (Exception) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
 					{
 						#if DEBUG
 						System.Diagnostics.Debug.Print("Select command-text: '{0}'",A.SelectCommand.CommandText);
