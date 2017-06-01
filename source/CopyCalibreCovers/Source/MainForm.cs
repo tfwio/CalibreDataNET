@@ -142,6 +142,7 @@ dirs[array]: {3}";
 		}
 		#endregion
 
+    // not adequate
 		void On_Button_Library_Add(object sender, EventArgs e)
 		{
 			BindingsClear();
@@ -150,6 +151,7 @@ dirs[array]: {3}";
 			BindingsReset();
 		}
 
+    // not adequate
 		void On_Button_Library_Remove(object sender, EventArgs e)
 		{
 			int id = comboBox1.SelectedIndex;
@@ -178,7 +180,6 @@ dirs[array]: {3}";
 			if (FBD.ShowDialog()==DialogResult.OK)
 				Options.Libraries.ResetBaseDirectory(FBD.SelectedPath);
 			BindingsReset();
-			
 		}
     
 		void On_Button_Change_Outputs(object sender, EventArgs e) { On_Button_Change_Outputs(); } // tbImageRootPath.Text = Options.Libraries.BaseImages.FullName;
