@@ -67,7 +67,8 @@ Until further updates, there are a few hard-coded areas that need to be changed 
 - `[clone-path]\source\CalibreData\source\models\bookrequest.cs`  
   static string libroot is hard-coded to a directory that doesn't even exist on my machine.  You can set it as you like.  
   Note: within the MVC-web-app's startup operation, we over-ride this with a call to `BookRequest.SetRoot([your-lib-root])`.
-
+- I had cloned https://github.com/subtlepatterns/SubtlePatterns into the mvc-book-app assets dir:  
+  `[this-repo]\source\Books\Assets\subtlepatterns`
 
 
 
