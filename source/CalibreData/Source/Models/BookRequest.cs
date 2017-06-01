@@ -36,7 +36,6 @@ AND d.[format] = '{FMT}'
 		public string GetFileName()
 		{
 			string fileName = null;
-			Data b = null;
 			var query = query_book
 				.Replace("{ID}",this.BookId)
 				.Replace("{FMT}",this.Format.ToUpper());
@@ -45,41 +44,24 @@ AND d.[format] = '{FMT}'
 				using (var data = db.ExecuteSelect(query, mytable))
 			{
 				try {
-					object[] a =data.Tables[mytable].DefaultView[0].Row.ItemArray;
+					object[] a = data.Tables[mytable].DefaultView[0].Row.ItemArray;
 					fileName = string.Format("{1}/{2}.{3}",a[0],a[1],a[2],(a[3] as string) .ToLower());
 					a = null;
 				}
-				catch (Exception e) {
-				}
+				catch (Exception) { /* shhhhhhh! */ }
 			}
 			
 			return fileName;
 			
 		}
 		
-		
-		
-		
-		long Id {
-			get {
-				return string.IsNullOrEmpty(BookId) ? 0 : Convert.ToInt64(BookId);
-			}
-		}
+		long Id { get { return string.IsNullOrEmpty(BookId) ? 0 : Convert.ToInt64(BookId); } }
 
-		public string Category {
-			get;
-			set;
-		}
+		public string Category { get; set; }
 
-		public string BookId {
-			get;
-			set;
-		}
+		public string BookId { get; set; }
 
-		public string Format {
-			get;
-			set;
-		}
+		public string Format { get; set; }
 
 		public BookRequest(string cat, string id, string fmt)
 		{
