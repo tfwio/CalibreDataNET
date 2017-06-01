@@ -1,0 +1,21 @@
+﻿{
+"libroot":"e:/serve/book",
+/*"imgroot":"d:/dev/www/pub/reader/assets",*/
+"imgroot":"e:/serve/book-cover",
+"dirs":[
+	"Artwork",
+	"Channel9",
+	"Codex",
+	"Dev",
+	"Do",
+	"Ebook",
+	"Fiction",
+	"Free Masonic",
+	"Images",
+	"Mag",
+	"Mathematics",
+	"New",
+	"Non-Fiction",
+	"Theology",
+	"Unicorns and Rainbows"
+]}
