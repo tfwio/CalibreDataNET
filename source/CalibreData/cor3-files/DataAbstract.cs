@@ -348,7 +348,7 @@ namespace System.Cor3.Data
 							Fill(A,ds,table);
 						}
 					}
-          catch (Exception) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
+          catch (Exception error) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
 					{
 						#if DEBUG
 						System.Diagnostics.Debug.Print("Select Command from within a DELETE command.");
@@ -411,14 +411,14 @@ namespace System.Cor3.Data
 						A.UpdateCommand.ExecuteNonQuery();
 						Fill(A,ds,table);
 					}
-          catch (Exception) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
+          catch (Exception error) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
 					{
 						#if DEBUG
 						System.Diagnostics.Debug.Print("Update ERROR: '{0}'",A.UpdateCommand.CommandText);
 						foreach (IDbDataParameter p in A.UpdateCommand.Parameters)
 							System.Diagnostics.Debug.Print("Param: '{0}', ToString = \"{1}\"", p.ParameterName, p);
 						//Logger.Warn("DataAbstract.Update: ERROR!","\n--------------\n{0}\n--------------\n",e.ToString());
-						throw e;
+						throw error;
 						#endif
 					}
 					try
@@ -429,12 +429,12 @@ namespace System.Cor3.Data
 							Fill(A,ds,table);
 						}
 					}
-					catch (Exception) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
+					catch (Exception error) // FIXME: NOTE THAT WE'RE IGNORING ANY EXCEPTION HERE.  Don't like it?  Fix it.
 					{
 						#if DEBUG
 						System.Diagnostics.Debug.Print("Select command-text: '{0}'",A.SelectCommand.CommandText);
 						//Logger.Warn("DataAbstract.Select (Via Update Method): ERROR!","\n--------------\n{0}\n--------------\n",e.ToString());
-						throw e;
+						throw error;
 						#endif
 					}
 					C.Close();
