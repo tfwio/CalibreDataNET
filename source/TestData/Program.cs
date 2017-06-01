@@ -9,11 +9,12 @@ using System.Linq;
 
 namespace TestData
 {
-	class Program
-	{
-	  // console-options
+  class Program
+  {
+    // console-options
     struct ConsoleOptions
     {
+      /// pause before the program terminates
       public bool ConsolePostPause { get; set; }
       public bool PauseOnError { get;set; }
       public string DatabasePath { get; set; }
@@ -30,77 +31,44 @@ namespace TestData
       /// <summary>
       /// if set to true, then will only generate the number of items that are stored to our resulting record-set 'list' items.
       /// </summary>
-      public bool SimpleGeneration { get; set; }
+      public bool SimplifyOutput { get; set; }
       public bool ShowQuery { get; set; }
     }
     static OutputOptions default_output_options = new OutputOptions()
     {
-      SimpleGeneration = false,
+      SimplifyOutput = false,
       ShowQuery = false
     };
     
     const string sql_db_path = @"[drive:\][path-to]\metadata.db";
-		const string generalQuery = @"select b.[id] 'bid', a.[name] 'author', [title], [format], [path] from ( ( ( ( books b inner join data d on b.[id] = d.[book] ) inner join books_authors_link bal on bal.[book] = b.[id] ) inner join authors a on bal.[author] = a.[id] ) );";
-		
-		static JsonSerializerSettings default_json_serializer_settings = new JsonSerializerSettings
+    const string generalQuery = @"select b.[id] 'bid', a.[name] 'author', [title], [format], [path] from ( ( ( ( books b inner join data d on b.[id] = d.[book] ) inner join books_authors_link bal on bal.[book] = b.[id] ) inner join authors a on bal.[author] = a.[id] ) );";
+    
+    static JsonSerializerSettings default_json_serializer_settings = new JsonSerializerSettings
     {
       Formatting = Formatting.Indented,
       StringEscapeHandling = StringEscapeHandling.Default
-		};
-		
-		
-		/// <summary>
-		/// to test JSON serialization and initial query-model planning.
-		/// </summary>
-		/// <returns></returns>
-		static public string Index(string database_path, OutputOptions options)
-		{
-      var db_file = new System.IO.FileInfo(database_path);
-		  if (!db_file.Exists)
-		    return string.Format("Database not found: {0}\nPlease supply a full path to the metadata.db you're interested in.\n", db_file.Name);
-		  
-			const string mytable = "mytable"; // const string jsonenc = "application/json";
-			if (true)
-			{
-				var list = new List<object[]>();
-				var rows = new List<string>();
-				string err = null;
-				using (var db = new SQLiteQuery(db_file.FullName))
-				using (var data = db.ExecuteSelect(generalQuery, mytable))
-				{
-					if (data.HasErrors) err = "We encountered an error\n";
-					foreach (DataColumn r in data.Tables[mytable].Columns) rows.Add(r.ColumnName);
-					foreach (DataRowView r in data.Tables[mytable].DefaultView) list.Add(r.Row.ItemArray);
-				}
-				object data1 = options.SimpleGeneration ? (object)list.Count : (object)list;
-				object ObjectToSerialize = new {
-          headers=rows,
-          data = data1,
-          query = options.ShowQuery ? generalQuery : "Nothing to see here!",
-          error = err
-				};
-				return JsonConvert.SerializeObject(
-				  ObjectToSerialize, default_json_serializer_settings);
-			}
-		}
+    };
+    
+    
     
     // test faux mvc controller response (to output)
-    static void Test_02(string metadata_db_path)
+    static void Test_02(string metadata_db_path, OutputOptions outOptions)
     {
-      string v = Index(metadata_db_path, default_output_options);
+      string v = JsonIndex(metadata_db_path, outOptions);
       Console.Write(v);
     }
-		
+    
     
     static void Pause()
     {
       Console.Write("\nPress any key to continue . . . ");
       Console.ReadKey(true);
     }
-    static void Help()
+    
+    static void Help() // not yet
     {
       var helpMsg = @"
-TestData.exe [-p][-n] [full_path_to_metadata.db]
+TestData.exe [-p] [full_path_to_metadata.db]
 
 where...
   -p: Pause after completion (also writes ""press a key to continue"")
@@ -108,54 +76,89 @@ where...
 ";
     }
     
-		public static void Main(string[] args)
-		{
+    public static void Main(string[] args)
+    {
       var o = default_console_options;
-		  
+      var oo = default_output_options;
       // inputs stack
-		  var istack = new Stack<string>(args); // Stack looks at the back first? Okay then...
+      var istack = new Stack<string>(args); // Stack looks at the back first? Okay then...
       
-		  if (args.Length==0) goto just_continue; // skip if we have nothing to work with.
-		  
-		  // check args[] for a valid path.
-		  if (System.IO.File.Exists(istack.Peek()))
-		    o.DatabasePath = istack.Pop();
+      if (args.Length==0) goto just_continue; // skip if we have nothing to work with.
       
-		  istack = new Stack<string>(istack.Reverse());
-		  
-		  while (istack.Count != 0) // more options?
-		  {
-		    var next = istack.Peek();
-		    switch (next.ToLower())
-		    {
-        case "-p": o.ConsolePostPause = true; break;
-        case "-n": o.ConsolePostPause = false; break; // useful if we turn default pause operation to true.
-		    }
-		    istack.Pop();
-		  }
-		just_continue:
-		  
-      // —————————————————————————————————————————————————————————————————————
-		  // CHECK INPUT DATABASE PATH
-		  // —————————————————————————————————————————————————————————————————————
-		  try {
-		    // will cause System.NotSupportedException if default-path is supplied (which is good)
+      // check args[] for a valid path.
+      if (System.IO.File.Exists(istack.Peek()))
+        o.DatabasePath = istack.Pop();
+      
+      istack = new Stack<string>(istack.Reverse());
+      
+      while (istack.Count != 0) // more options?
+      {
+        var next = istack.Peek();
+        switch (next.ToLower())
+        {
+            case "-p": o.ConsolePostPause = true; break;
+            case "-s": oo.SimplifyOutput = true; break;
+            //case "-n": o.ConsolePostPause = false; break; // useful if we turn default pause operation to true.
+        }
+        istack.Pop();
+      }
+      just_continue:
+        
+        // —————————————————————————————————————————————————————————————————————
+        // CHECK INPUT DATABASE PATH
+        // —————————————————————————————————————————————————————————————————————
+        try {
+        // will cause System.NotSupportedException if default-path is supplied (which is good)
         var fileinfo_path = new System.IO.FileInfo(o.DatabasePath);
-		  }
-		  catch (System.NotSupportedException)
-		  {
+      }
+      catch (System.NotSupportedException)
+      {
         var msg = string.Format("Database not found: {0}\nPlease supply a full path to the metadata.db you're interested in.\n", o.DatabasePath);
         Console.Write(msg);
         if (o.PauseOnError) Pause();
         return;
-		  }
-		  
-		  
-      Test_02(o.DatabasePath); // finally
+      }
+      
+      Test_02(o.DatabasePath, oo); // finally
       
       if (o.ConsolePostPause) Pause();
-		}
+    }
     
+    /// <summary>
+    /// to test JSON serialization and initial query-model planning.
+    /// </summary>
+    /// <returns></returns>
+    static public string JsonIndex(string database_path, OutputOptions options)
+    {
+      var db_file = new System.IO.FileInfo(database_path);
+      if (!db_file.Exists)
+        return string.Format("Database not found: {0}\nPlease supply a full path to the metadata.db you're interested in.\n", db_file.Name);
+      
+      const string mytable = "mytable"; // const string jsonenc = "application/json";
+      if (true)
+      {
+        var list = new List<object[]>();
+        var rows = new List<string>();
+        string err = null;
+        using (var db = new SQLiteQuery(db_file.FullName))
+          using (var data = db.ExecuteSelect(generalQuery, mytable))
+        {
+          if (data.HasErrors) err = "We encountered an error\n";
+          foreach (DataColumn r in data.Tables[mytable].Columns) rows.Add(r.ColumnName);
+          foreach (DataRowView r in data.Tables[mytable].DefaultView) list.Add(r.Row.ItemArray);
+        }
+        object data1 = options.SimplifyOutput ? (object)list.Count : (object)list;
+        object ObjectToSerialize = new {
+          headers=rows,
+          data = data1,
+          query = options.ShowQuery ? generalQuery : "Nothing to see here!",
+          error = err
+        };
+        return JsonConvert.SerializeObject(
+          ObjectToSerialize, default_json_serializer_settings);
+      }
+    }
+
     // void Test_00() // png to jpg conversion // note that this method no longer exists!
     // {
     //   var sizeto = new System.Drawing.FloatPoint(200, 320);
@@ -173,5 +176,5 @@ where...
     //   Console.ReadKey();
     //   return ;
     // }
-	}
+  }
 }

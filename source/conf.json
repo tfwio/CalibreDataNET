@@ -1,6 +1,5 @@
 ﻿{
 "libroot":"e:/serve/book",
-/*"imgroot":"d:/dev/www/pub/reader/assets",*/
 "imgroot":"e:/serve/book-cover",
 "dirs":[
 	"Artwork",

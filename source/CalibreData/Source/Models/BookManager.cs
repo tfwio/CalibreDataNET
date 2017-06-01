@@ -103,7 +103,11 @@ namespace CalibreData.Models
 		
 		void CheckError() { if (this.error != null) throw error; }
 		
-		public BookManager(string root, string subPath)
+    public BookManager(string root, string subPath)
+    {
+      Load(root,subPath);
+    }
+		void Load(string root, string subPath)
 		{
 			this.subPath = subPath;
 			this.LibraryPath = new DirectoryInfo(System.IO.Path.Combine(root,SubPath));

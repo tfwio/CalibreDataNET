@@ -1,4 +1,15 @@
 ﻿/* oio : 3/9/2014 6:29 AM */
+
+// 
+// this is/was just some sort of generated content
+// using some generator tool or another.
+// 
+// that said, it would be nice to have some sort of
+// generation device to generate some portion of our
+// controller (in which case, perhaps maybe we would
+// mark it as a `partial class`.
+// 
+
 using System;
 using System.Web.Mvc;
 using CalibreData.Models;

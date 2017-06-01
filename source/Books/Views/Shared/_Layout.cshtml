@@ -1,6 +1,15 @@
 ﻿<!DOCTYPE HTML>
 <html>
 	<head>
+		<!--<base href="@Url.Content("~/")" target="_blank">-->
+		<base href="@Url.Content("~/")">
+		<title>@ViewBag.Title</title>
+		<link type="text/css" href="@Url.Content("~/assets/css/default.css")" rel="stylesheet">
+		<script language="javascript" src="@Url.Content("~/assets/js/vendor/json2.js")"></script>
+		<script language="javascript" src="@Url.Content("~/assets/js/vendor/jquery-1.11.1.min.js")"></script>
+		<script language="javascript" src="@Url.Content("~/assets/js/vendor/underscore-min.js")"></script>
+		<script language="javascript" src="@Url.Content("~/assets/js/vendor/backbone-min.js")"></script>
+		<!--<script language="javascript" src="@Url.Content("~/assets/js/vendor/jquery-2.1.1.js")"></script>-->
 	</head>
 	<body>@RenderBody()
 	</body>

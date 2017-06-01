@@ -7,12 +7,15 @@ namespace CalibreData.Models
 {
 	public class BookRequest
 	{
-		
+	  static public void SetRoot(string library_root_path)
+	  {
+	    BookRequest.libroot = library_root_path;
+	  }
 		#region Constants
 		// 
 		// FIXME: this should be modular
 		// 
-		const string libroot = @"f:\horde\library";
+		static string libroot = @"f:\horde\library";
 		
 		
 		const string mytable = "table";
