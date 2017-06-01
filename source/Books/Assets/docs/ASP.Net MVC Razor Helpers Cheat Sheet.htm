@@ -1,0 +1,149 @@
+<!doctype html>  
+<html>
+  <title>ASP.Net MVC Razor Helpers Cheat Sheet</title>
+  <meta name="description" content="ASP.Net MVC Razor Helpers Cheat Sheet.">
+  <meta name="author" content="Egor Pavlikhin">
+  <style type="text/css" media="print">
+  html, body { font-family: Arial; margin: 0; font-size: 8pt; }
+  .title { color: #000; font-size: 16pt; }
+.left {
+	font-weight: bold;
+	background: #ccc;
+	padding: 0.2em 0.4em 0.2em 0.2em;
+	border-bottom: 1px solid #666;
+}
+.middle {
+	border-bottom: 1px solid #666;
+	padding: 0.2em 0.4em 0.2em 0.2em;
+}
+.right {
+	border-bottom: 1px solid #666;
+	background: #ccc;
+	padding: 0.2em 0.4em 0.2em 0.2em;
+}
+#footer {
+	padding: 1em 0em 1em 0em;
+	border-top: 10px solid #666;
+}
+#footer div { width: 34em; margin: 0 auto; }
+  </style>
+  <style type="text/css" media="screen">
+  html, body {
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+	font-family: Calibri, Arial;
+	text-shadow: 1px 1px 0px #333;
+	font-size: 11pt;
+	color: #fff;
+  background: #3081F2; /* old browsers */
+background: -moz-linear-gradient(top, #3081F2 0%, #1D5191 100%) fixed; /* firefox */
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3081F2), color-stop(100%,#1D5191)) fixed; /* webkit */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3081F2', endColorstr='#1D5191',GradientType=0 ) fixed; /* ie */
+	}
+	.title {
+	padding: 0.5em;
+	font-size: 16pt; font-weight: bold; color: #fff; float: left;
+		background: #FF9232; /* old browsers */
+background: -moz-linear-gradient(top, #FF9232 0%, #F26A30 100%); /* firefox */
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FF9232), color-stop(100%,#F26A30)); /* webkit */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF9232', endColorstr='#F26A30',GradientType=0 ); /* ie */
+	border: 5px solid #FFAD32;
+}
+h1 {
+	margin: 0 auto;
+	font-size: 24pt;
+	text-shadow: 1px 2px 2px #333;
+}
+#helpertable {
+}
+
+#helpertable2 {
+}
+.left{
+	border-bottom: 1px solid #82B0ED;
+	padding: 0.3em;
+	font-weight: bold;background: #1D5191;
+	min-width: 23em;
+}
+.middle{
+	padding: 0.3em;
+	border-bottom: 1px solid #82B0ED;
+	
+}
+a { color: #fff; }
+.right{
+	padding: 0.3em;
+	border-bottom: 1px solid #82B0ED;
+	background: #1D5191;
+}
+#footer {
+	padding: 1em 0em 1em 0em;
+	border-top: 10px solid #3081F2;
+	background: #3081F2; /* old browsers */
+background: -moz-linear-gradient(top, #3081F2 0%, #1D5191 100%) fixed; /* firefox */
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3081F2), color-stop(100%,#1D5191)) fixed; /* webkit */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3081F2', endColorstr='#1D5191',GradientType=0 ) fixed; /* ie */
+}
+#footer div { width: 30em; margin: 0 auto; }
+  </style>
+</head>
+<body>
+<div style="width: 40em; margin: 0 auto; text-align: center;">
+<h1>ASP .Net MVC Razor Helpers Cheat Sheet</h1>
+</div>
+<div id="helpertable">
+	<div class="title">HtmlHelper</div>
+	<table cellpadding="0" cellspacing="0" style="clear: left; width: 100%;">
+	<tr><td class="left"><b>Method</b></td><td class="middle"><b>Action</b></td><td class="right"><b>Output</b></td></tr>
+	<tr><td class="left">ActionLink(s:text, s:action, o:attributes)</td><td class="middle">Writes an anchor tag to a link for a specific action.</td><td class="right">&lt;a href="action"&gt;text&lt;/a&gt;</td></tr>
+	<tr><td class="left">AntiForgeryToken(s:salt, s:domain, s:path)</td><td class="middle">Generates a hidden form field (anti-forgery token) that is validated when the form is submitted.</td><td class="right"></td></tr>
+	<tr><td class="left">AttributeEncode(s: input)</td><td class="middle">HTML-encodes the string (as an attribute).</td><td class="right"></td></tr>
+	<tr><td class="left">BeginForm(s:action, s:controller, o:values)</td><td class="middle">Writes an opening &lt;form&gt; tag to the response.</td><td class="right">&lt;form action="/controller/action/"&gt;</td></tr>
+	<tr><td class="left">BeginRouteForm(s:routeName)</td><td class="middle">Writes an opening &lt;form&gt; tag for the route.</td><td class="right">&lt;form action="route"&gt;</td></tr>
+	<tr><td class="left">CheckBox(s:name, b:checked)</td><td class="middle">Returns a check box input element.</td><td class="right">&lt;input type="checkbox" name="name" id="name" checked="checked" /&gt;</td></tr>
+	<tr><td class="left">CheckBoxFor(e:expression)</td><td class="middle">Returns a check box input element for the model.</td><td class="right">&lt;input type="checkbox" name="name" id="name" checked="checked" /&gt;</td></tr>
+	<tr><td class="left">DropDownList(s:name, list:selectlistitems)</td><td class="middle">Returns a single-selection select element.</td><td class="right">&lt;select name="name" id="name"&gt;&lt;/select&gt;</td></tr>
+	<tr><td class="left">DropDownListFor(e:expression, list:selectlistitems)</td><td class="middle">Returns a single-selection select element for the model.</td><td class="right">&lt;select name="name" id="name"&gt;&lt;/select&gt;</td></tr>
+	<tr><td class="left">Encode(s:input)</td><td class="middle">HTML-encodes the string.</td><td class="right"></td></tr>
+	<tr><td class="left">EndForm()</td><td class="middle">Renders the closing &lt;/form&gt; tag to the response.</td><td class="right">&lt;/form&gt;</td></tr>
+	<tr><td class="left">Hidden(s:name, o:value)</td><td class="middle">Returns a hidden input element.</td><td class="right">&lt;input type="hidden" value="value" name="name" /&gt;</td></tr>
+	<tr><td class="left">HiddenFor(e:expression)</td><td class="middle">Returns a hidden input element for the model.</td><td class="right">&lt;input type="hidden" value="value" name="name" /&gt;</td></tr>
+	<tr><td class="left">ListBox(s:name, list:selectlistitems)</td><td class="middle">Returns a multi-select select element.</td><td class="right">&lt;select multiple="multiple" name="name" id="name"&gt;&lt;/select&gt;</td></tr>
+	<tr><td class="left">ListBoxFor(e:expression, list:selectlistitems)</td><td class="middle">Returns a multi-select select element for the model.</td><td class="right">&lt;select multiple="multiple" name="name" id="name"&gt;&lt;/select&gt;</td></tr>
+	<tr><td class="left">Password(s:name, o:value)</td><td class="middle">Returns a password input element.</td><td class="right">&lt;input type="password" value="value" name="name" /&gt;</td></tr>
+	<tr><td class="left">PasswordFor(e:expression)</td><td class="middle">Returns a password input element for the model.</td><td class="right">&lt;input type="password" value="value" name="name" /&gt;</td></tr>
+	<tr><td class="left">RadioButton(s:name, o:value, b:checked)</td><td class="middle">Returns a radio button input element.</td><td class="right">&lt;input type="radio" value="value" name="name" checked="checked" /&gt;</td></tr>
+	<tr><td class="left">RadioButtonFor(e:expression, o:value)</td><td class="middle">Returns a radio button input element for the model.</td><td class="right">&lt;input type="radio" value="value" name="name" checked="checked" /&gt;</td></tr>
+	<tr><td class="left">Partial(s:name, o:model)</td><td class="middle">Renders a partial view (.cshtml).</td><td class="right"></td></tr>
+	<tr><td class="left">RouteLink(s:text, s:routeName)</td><td class="middle">Returns an anchor element (a element) that contains the virtual path of the specified action.</td><td class="right">&lt;a href="action"&gt;text&lt;/a&gt;</td></tr>
+	<tr><td class="left">TextArea(s:name, s:value)</td><td class="middle">Returns the specified textarea element.</td><td class="right">&lt;textarea name="name"&gt;value&lt;/textarea&gt;</td></tr>
+	<tr><td class="left">TextAreaFor(e:expression)</td><td class="middle">Returns the specified textarea element for the model.</td><td class="right">&lt;textarea name="name"&gt;value&lt;/textarea&gt;</td></tr>
+	<tr><td class="left">TextBox(s:name, o:value)</td><td class="middle">Returns a text input element.</td><td class="right">&lt;input type="text" name="name" value="value" /&gt;</td></tr>
+	<tr><td class="left">TextBoxFor(e:expression)</td><td class="middle">Returns a text input element for the model.</td><td class="right">&lt;input type="text" name="name" value="value" /&gt;</td></tr>
+	<tr><td class="left">TextBoxFor(e:expression)</td><td class="middle">Returns a text input element for the model.</td><td class="right">&lt;input type="text" name="name" value="value" /&gt;</td></tr>
+	</table>
+</div>
+
+<div id="helpertable2">
+	<div class="title">UrlHelper</div>
+	<table cellpadding="0" cellspacing="0" style="clear: left; width: 100%;">
+	<tr><td class="left"><b>Method</b></td><td class="middle"><b>Action</b></td><td class="right"><b>Output</b></td></tr>
+	<tr><td class="left">Action(s:action, s:controller)</td><td class="middle">Generates a fully qualified URL to an action method.</td><td class="right"></td></tr>
+	<tr><td class="left">Content(s:path)</td><td class="middle">Converts a virtual (relative) path to an application absolute path.</td><td class="right"></td></tr>
+	<tr><td class="left">Encode(s:url)</td><td class="middle">Encodes special characters in a URL string into character-entity equivalents.</td><td class="right"></td></tr>
+	<tr><td class="left">RouteUrl(s:route)</td><td class="middle">Generates a fully qualified URL for the specified route name.</td><td class="right"></td></tr>
+	</table>
+</div>
+
+<div id="footer">
+	<div><img src="http://pabros.com.au/logo.png" style="float: left; margin-right: 2em;" />Prepared by <a href="http://httputility.com">Egor Pavlikhin</a> (<a href="http://pabros.com.au">pabros.com.au</a>)</div>
+</div>
+</body>
+</html>

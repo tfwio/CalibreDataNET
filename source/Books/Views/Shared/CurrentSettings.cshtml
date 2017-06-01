@@ -1,0 +1,87 @@
+﻿@model CalibreData.Models.InfoModel
+
+<h2>Current Settings</h2>
+
+<ul id="current-settings">
+
+<li>libroot
+<ul>
+<li>@Html.ViewData["libroot"]</li>
+</ul>
+</li>
+
+<li>imgroot
+<ul>
+<li>@Html.ViewData["imgroot"]</li>
+</ul>
+</li>
+
+<li>dirs
+<ul>
+<li>@Html.ViewData["dirs"]</li>
+</ul>
+</li>
+
+<li>ignore
+<ul>
+<li>@Html.ViewData["ignore"]</li>
+</ul>
+</li>
+
+</ul>
+
+@*
+@using (Html.BeginForm()) {
+	@Html.ValidationSummary(true)
+	<fieldset>
+		<legend>InfoModel</legend>
+		
+		<div class="editor-label">
+			@Html.LabelFor(model => model.action)
+		</div>
+		<div class="editor-field">
+			@Html.EditorFor(model => model.action)
+			@Html.ValidationMessageFor(model => model.action)
+		</div>
+		
+		<div class="editor-label">
+			@Html.LabelFor(model => model.libroot)
+		</div>
+		<div class="editor-field">
+			@Html.EditorFor(model => model.libroot)
+			@Html.ValidationMessageFor(model => model.libroot)
+		</div>
+		
+		<div class="editor-label">
+			@Html.LabelFor(model => model.imgroot)
+		</div>
+		<div class="editor-field">
+			@Html.EditorFor(model => model.imgroot)
+			@Html.ValidationMessageFor(model => model.imgroot)
+		</div>
+		
+		<div class="editor-label">
+			@Html.LabelFor(model => model.dirs)
+		</div>
+		<div class="editor-field">
+			@Html.EditorFor(model => model.dirs)
+			@Html.ValidationMessageFor(model => model.dirs)
+		</div>
+		
+		<div class="editor-label">
+			@Html.LabelFor(model => model.ignore)
+		</div>
+		<div class="editor-field">
+			@Html.EditorFor(model => model.ignore)
+			@Html.ValidationMessageFor(model => model.ignore)
+		</div>
+		
+		<p>
+			<input type="submit" value="Create"/>
+		</p>
+	</fieldset>
+}
+<div>
+	@Html.ActionLink("Back", "Index")
+</div>
+*@

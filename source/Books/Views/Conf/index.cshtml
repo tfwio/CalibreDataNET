@@ -1,0 +1,186 @@
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "index";
+}
+
+<h1>Conf</h1>
+
+SEE:
+
+<ul>
+<li><a href="http://backbonejs.org/#Sync">BackboneJS-Sync</a></li>
+<li><a href="@Url.Content("~/assets/doc/readme.htm")" target="_doc">readme</a></li>
+<li><a href="@Url.Content("~/conf/?get=1")">JSON</a></li>
+</ul>
+
+@Html.Partial("CurrentSettings")
+
+
+
+<h2>Manage</h2>
+
+<h3>Configuration Options</h3>
+
+@Html.Partial("ImageUtils")
+
+
+<h2>Test PUT</h2>
+<div id="out"></div>
+
+<button id='test'>test put</button>
+
+
+<br />
+@*
+@Html.ViewData["json"]
+*@
+<script>
+
+'use strict';
+
+function doPut()
+{
+	var oData = {
+		libroot:"f:/horde/library",
+		imgroot:"d:/dev/www/pub/reader/assets",
+		dirs: [
+			"library, the","library, comic","library, dev",
+			"library, ebook","library, fiction","library, mag",
+			"library, new","library, ssoc","library, topical"
+		]
+	};
+	$.ajax({
+	  url: '@Url.Content("~/conf/")',
+	  type: 'PUT',
+	  contentType: 'application/json; charset=utf-8',
+	  dataType: 'json',
+	  data: JSON.stringify(oData),
+	  success: function (result) {
+	    //alert(result);
+	  },
+	  error: function(e) {
+	  	if (e.statusText != "OK")
+	  	{
+		    console.log("this", this);
+		    console.log("e",    e);
+	  	} else {
+	  		console.log(e);
+	  	}
+	  }
+	});
+}
+var TestBg = Backbone.Collection.extend({
+	url: "@Url.Content("~/conf/images")",
+	parse: function(o)
+	{
+		return {files: o};
+	}
+});
+var TestBgView = Backbone.View.extend({
+	el: 'select#subtle',
+	collection: new TestBg(),
+	tpl: _.template("<option value=\"<%= file %>\"><%= file %></option>"),
+	render: function(o)
+	{
+		var self = this;
+		this.$el.empty();
+		_.each(o,function(d){
+			self.$el.append(
+				self.tpl(d)
+			);
+		});
+	},
+	changeTrigger: function(){
+		var mpath="url(@Url.Content("~/assets/subtlepatterns/")"+this.$el.val()+") repeat";
+		$("body").css({
+			background: mpath
+			//,backgroundAttachment: "fixed"
+		});
+	},
+	events: {
+		"change" : "changeTrigger"
+	},
+	onfetch: function(c)
+	{
+		var ob = this.collection.first().get("files");
+		this.render(_.each(ob,function(e){}),this);
+		return this;
+	},
+	initialize: function()
+	{
+		this.collection.on("reset", this.onfetch, this);
+		this.collection.fetch({
+			reset: true
+		});
+		return this;
+	}
+});
+var ConfigModel = Backbone.Model.extend({
+	defaults: function(){ return { 'httpMethod': null }; },
+	url: '@Url.Content("~/conf/data/")'
+});
+var ConfigView = Backbone.View.extend({
+	el: '#config-elms',
+	model: new ConfigModel,
+	$htm: $("#out"),
+	createButton: function(id,text,method){
+		var b = document.createElement("BUTTON");
+		b = $(b);
+		b.attr('id',id);
+		b.html(text);
+		b.on('click',this,method)
+		this.$el.append(b);
+	},
+	render:function(){
+		this.createButton.call(this,"btn-do-fetch","FETCH",this.dofetch);
+		this.createButton.call(this,"btn-do-fetch","SAVE",this.dosave);
+	},
+	dofetch: function(el){
+		el.data.model.fetch({
+			error: el.data.goterror,
+			success: el.data.gotsuccess,
+			complete: el.data.gotdata
+			});
+	},
+	dosave: function(el){
+		el.data.model.set("httpMethod","THE VALUE THAT I SET, "+String(app.incr));
+		console.log("saving... The updated value is ",el.data.model.get("httpMethod"));
+		var rv = el.data.model.save({
+			error: el.data.goterror,
+			success: el.data.gotsuccess,
+			complete: el.data.gotdata
+			});
+	},
+	gotdata: function(e){
+		console.log("got data",e,this);
+		console.log(JSON.stringify(e.responseText));
+	},
+	goterror: function(e){
+		console.log("error",e,"this",this);
+	},
+	gotsuccess: function(e){
+		console.log("success");
+	},
+	onchange: function(el){
+		console.log("changed",this,el);
+		app.incr++;
+		console.log(app.incr);
+		app.view.$htm.html(app.incr);
+	},
+	initialize: function(){
+		this.model.on('change',this.onchange);
+		this.render();
+		return this;
+	}
+});
+$(window).ready(function(){
+	$('#test').on('click',doPut);
+	window.app = {
+		incr: 0,
+		view: new ConfigView,
+		imgs: new TestBgView
+	};
+});
+
+
+</script>

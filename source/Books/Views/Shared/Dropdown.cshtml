@@ -1,0 +1,22 @@
+﻿@{var approved = new List<string>{
+			"non-fiction",
+			"comic",
+			"dev",
+			"ebook",
+			"fiction",
+			"mag",
+			"new",
+			"ssoc",
+			"topical"
+}; }@functions{
+string Generate(List<string> sections, string fmt)
+{
+	string rvalue = "";
+	foreach (var i in sections){
+		rvalue += String.Format(fmt,i);
+	}
+	return rvalue;
+}}
+@*@Html.Raw(Generate(approved,"<button img-gen='{0}'>{0}</button>"))
+*@<select style="width: 380px;" id="dirs">@Html.Raw(Generate(approved,"<option value='{0}'>{0}</option>\n"))
+</select>

@@ -1,0 +1,27 @@
+﻿{
+"libroot":"e:/serve/book",
+/*"imgroot":"d:/dev/www/pub/reader/assets",*/
+"imgroot":"e:/serve/book-cover",
+"dirs":[
+	"Artwork",
+	"Channel9",
+	"Codex",
+	"Comic",
+	"Conspiracy Data",
+	"Dev",
+	"Do",
+	"Ebook",
+	"Fiction",
+	"Free Masonic",
+	"I Be",
+	"Images",
+	"Mag",
+	"Mathematics",
+	"New",
+	"Non-Fiction",
+	"Psychology",
+	"SSOC",
+	"Theology",
+	"Unicorns and Rainbows",
+	"Worldtracker"
+]}

@@ -1,0 +1,93 @@
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+</head>
+</body>
+<p><nav id="TOC">
+<h3>TOC</h3>
+<ul>
+<li><a href="#mvc-webapp-interface-api">MVC WebApp Interface API</a></li>
+<li><a href="#copycalibrecovers-and-its-config-file">CopyCalibreCovers and its Config-File</a><ul>
+<li><a href="#testapp">TestApp</a></li>
+</ul></li>
+<li><a href="#before-you-compile">BEFORE YOU COMPILE</a></li>
+</ul>
+</nav>
+<!-- title: CalibreDataNET
+subtitle: Calibre (ebook software) Database Utility written for DotNET
+date: 2014-07–2017
+author: tfwio -->
+<p>Here there are a few examples of how to use Calibre’s SQLite3 databases wired up into three basic applications…</p>
+<ol>
+<li><strong>CalibreData</strong>: is the ‘common’ library carries bulk data and image utililty operations/abstractions.</li>
+<li><strong>BookApp</strong> <code>books.csproj</code>: A general MVC-WebApp (DotNet v4.0, MVC v4.0, WebPages v2.0)</li>
+<li><strong>CopyCalibreImages</strong>: A Windows.Forms app which abstracts thumbnails from your Calibre libraries provided a JSON configuration file, <code>conf.json</code>.</li>
+<li>A general <strong>TestApp</strong> simply exists to point one in the right direction when it comes to generating JSON content from the command-line similarly to the way the MVC-web-app does.</li>
+</ol>
+<h1 id="mvc-webapp-interface-api">MVC WebApp Interface API</h1>
+<p>The basic general scope of the MVC app is to provide a JSON response provided specific request syntax so that one can build a SPA (Single Page Application) or some-such. HTTP responses will either be JSON-data mirrored from the respective <code>metadata.db</code> in your e-book library-directory, or a e-book download.</p>
+<p>Before listing the few API, note that this tool expects that you have multiple Calibre book-libraries in paralell to one another in a given ‘root’ directory. That is to say that within <code>[library-root-path]</code>, we may have several sub-directories and each of those sub-directories is a Calibre library.</p>
+<p>If you have only one Calibre e-book library, then just use it’s parent directory as the library-root and configure only the one library.</p>
+<ul>
+<li><code>~/api/[category]</code> where <strong>category</strong> is the name of your library (sub-directory)</li>
+<li><code>~/api/book/[category]/[index]/[format]/</code>: This is used to download your book in the provided format. This layer of the API is expected to be generated from our data-set which tells us what book formats are available, the book-id (index) and etc…
+<ul>
+<li><code>category</code>: as seen above, this is the target “library-path-name”.</li>
+<li><code>index</code>: the book index or ‘id’ for the book as indexed into the database. (this same index corresponds to the generated images in the CopyCalibreCovers Windows.Forms app).</li>
+<li><code>format</code>: the supported book format.</li>
+</ul></li>
+</ul>
+<h1 id="copycalibrecovers-and-its-config-file">CopyCalibreCovers and its Config-File</h1>
+<p>This app was written (and most everything else presented here) from some strange tinker-mentallity where I’d been playing with windows-forms binding methodology a bit (among other things). Note that most if not all the main-menu (in the menu-bar) items do NOTHING. Some of the features (like the +/- buttons) are kind of useless, but once you write up a working configuration file (or change the existing one), the program will allow you to generate thumbnails from your Calibre library covers.</p>
+<p>Each image is named for the INDEX of the book as it is listed within the <code>metadata.db</code> for the library, so you can look up the image by the index of your book from another script or application.</p>
+<p>Config file is copied parallel to the application <code>CopyCalibreCovers.exe</code> on build and is loded when the program launches.</p>
+<ul>
+<li><code>libroot</code>: The directory containing your calibre-library directories. just to be clear, each calibre-library directoriy contains a <code>metadata.db</code> file.</li>
+<li><code>imgroot</code>: is the target export directory. Do be sure this directory exists—I’m thinking it doesn’t auto-generate.</li>
+<li><code>dirs</code>: these are the sub-directories as can be found in <code>lib-root</code> which are allowed to be generated from within the application.</li>
+</ul>
+<p><strong>conf.json example</strong></p>
+<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+<span class="dt">&quot;libroot&quot;</span><span class="fu">:</span><span class="st">&quot;e:/serve/book&quot;</span><span class="fu">,</span>
+<span class="dt">&quot;imgroot&quot;</span><span class="fu">:</span><span class="st">&quot;e:/serve/book-cover&quot;</span><span class="fu">,</span>
+<span class="dt">&quot;dirs&quot;</span><span class="fu">:</span><span class="ot">[</span>
+  <span class="st">&quot;Library-One&quot;</span><span class="ot">,</span>
+  <span class="st">&quot;Library-Two&quot;</span><span class="ot">,</span>
+  <span class="st">&quot;Library-Three&quot;</span><span class="ot">,</span>
+  <span class="er">//</span> <span class="er">...</span><span class="ot">,</span>
+  <span class="st">&quot;Library-N&quot;</span>
+<span class="ot">]</span><span class="fu">}</span></code></pre>
+<h2 id="testapp">TestApp</h2>
+<p>A command-line demo app allows for two little options and may have the following parameters…</p>
+<ul>
+<li><code>-p</code> (optional) tells the program to pause before exiting</li>
+<li><code>-s</code> (optional) tells the program to <code>SimplifyOutput</code> which omits the query from the ‘response’ (output) and tabifies (prettifies) the resulting JSON output for human reading.</li>
+<li>the last parameter must be the full path to your <code>metadata.db</code> file. Any option before the db file will be ignored if not listed above.</li>
+</ul>
+<h1 id="before-you-compile">BEFORE YOU COMPILE</h1>
+<p>Until further updates, there are a few hard-coded areas that need to be changed to suit your Calibre library (location).</p>
+<ul>
+<li>Make sure you modify/update the conf.json file in the main source directory (<code>[clone-path]\source\conf.json</code>).</li>
+<li><code>[clone-path]\source\CalibreData\source\models\bookrequest.cs</code><br /> static string libroot is hard-coded to a directory that doesn’t even exist on my machine. You can set it as you like.<br /> Note: within the MVC-web-app’s startup operation, we over-ride this with a call to <code>BookRequest.SetRoot([your-lib-root])</code>.</li>
+</ul>
+</body>
+</html><style>
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>

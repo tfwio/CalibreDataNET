@@ -1,0 +1,14 @@
+﻿{
+"libroot":"f:/horde/library",
+"imgroot":"d:/dev/www/pub/reader/assets",
+"dirs":[
+	"non-fiction",
+	"comic",
+	"dev",
+	"ebook",
+	"fiction",
+	"mag",
+	"new",
+	"ssoc",
+	"topical"
+]}

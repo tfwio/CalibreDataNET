@@ -1,0 +1,56 @@
+﻿@*
+<h3>Image (Covers) Generation</h3>
+
+<img align="right" src="@Url.Content("~/assets/CopyCalibreCovers.png")" />
+
+
+<p>This is simply a collection of abstractions for coding your own customizations on top of this application.</p>
+<p>The idea is to emulate the Calibre Image Generator (depicted in the snapshot), though we need some additional configuration options for configuring your library.</p>
+
+<h3 style="color: red">
+Generation of images may take a while! (for HUGE libraries)
+</h3>
+*@
+<FIELDSET style="clear: both"><legend>Library Base-Path</legend>
+
+<LABEL for="libroot" class="most">Library</LABEL><INPUT
+	type="text" id="libroot" name="libroot"
+	value="f:/horde/library" style="min-width: 360px;"
+	/><BUTTON>Change-Root</BUTTON><br/>
+
+<LABEL for="imageroot" class="most">Output</LABEL><INPUT
+	type="text" id="imageroot" name="imageroot"
+	value="d:/dev/www/pub/reader/assets" style="min-width: 360px;"
+	/><BUTTON>Change-Root</BUTTON><br/>
+
+<LABEL for="dirs" class="most"
+	>Dirs</LABEL>@Html.Partial("Dropdown")<BUTTON
+	>Update Images</BUTTON><br />
+
+<INPUT type="radio" id="lall" name="r1"
+/><LABEL for="lall" class="ignored" >All</LABEL><INPUT type="radio" id="lmissing" name="r1" checked
+/><LABEL for="lmissing" class="ignored">Only Missing</LABEL>
+<hr />
+
+<span id='config-elms'> </span>
+<BUTTON id="btn-check">CHECK</BUTTON>
+<BUTTON id="btn-reinit">REINITTIALIZE</BUTTON>
+<BUTTON id="btn-ignore">IGNORE</BUTTON>
+<BUTTON id="btn-unignore">UNIGNORE</BUTTON>
+</FIELDSET>
+
+<SELECT id="subtle"></SELECT>
+
+<p>
+	<strong>Check Library</strong> &mdash; Check library directories,
+	and ensure that each entry is valid.
+	Any directories that are different would be flagged and marked as IGNORED.
+	The feature generally compares against the stored library.
+</p>
+
+<ul>
+	<li>In a real life scenario, we would be detecting that there is no configuation data.</li>
+	<li>Submit current configuration.</li>
+	<li>Load configuration based on base-directories.</li>
+	<li></li>
+</ul>

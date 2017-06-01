@@ -1,0 +1,24 @@
+﻿
+<h3>Source Code-Generator Method</h3>
+
+<p>
+This method is based on our <tt>./Source/Controllers/ApiController.cs.tpl</tt> file.
+</p>
+
+<pre style="overflow: scroll"><code>    &lt;Table Name="books-menu" PrimaryKey="Library, Comic" DbType="SQLite">
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, Comic" IsArray="false" DefaultValue="DBNull.Value" />
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, DEV" IsArray="false" DefaultValue="DBNull.Value" />
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, Ebook" IsArray="false" DefaultValue="DBNull.Value" />
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, Fiction" IsArray="false" DefaultValue="DBNull.Value" />
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, Mag" IsArray="false" DefaultValue="DBNull.Value" />
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, New" IsArray="false" DefaultValue="DBNull.Value" />
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, SSOC" IsArray="false" DefaultValue="DBNull.Value" />
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, The" IsArray="false" DefaultValue="DBNull.Value" />
+      &lt;Field Tags="" DataType="TEXT" DataTypeNative="String" DataName="Library, Topical" IsArray="false" DefaultValue="DBNull.Value" />
+    &lt;/Table>
+</code></pre>
+@Html.ActionLink("books","books","api",new {title="The default library: “Library, The”"})
+@Html.ActionLink("comic","books","api",new {title="COMICS"})
+@Html.ActionLink("dev","books","api",new {title="The development library"})
+@Html.ActionLink("ebook","books","api",new {title="ebooks library"})
+@Html.ActionLink("fiction","books","api",new {title="fiction library"})

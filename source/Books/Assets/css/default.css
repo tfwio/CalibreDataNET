@@ -1,0 +1,105 @@
+﻿
+HTML, BODY
+{
+	font-family: Roboto Slab, Rockwell;
+}
+body
+{
+	/*
+	background: url(../subtlepatterns/white_carbon.png);
+	*/
+	background: url(../subtlepatterns/tiny_grid.png);
+}
+button, select, input[type=text]
+{
+	margin: 0;
+	padding: 8px 8px;
+	font-size: 18pt;
+}
+button
+{
+	min-width: 200px;
+}
+select
+{
+	min-width: 200px;
+}
+LABEL.most
+{
+	display: inline-block;
+	padding: 8px 8px;
+	text-align: right;
+	min-width: 80px;
+}
+LABEL.ignored
+{
+	display: inline-block;
+	padding: 8px 8px;
+	text-align: right;
+	min-width: 20px;
+}
+BUTTON
+{
+	color: #777;
+}
+INPUT,
+SELECT,
+BUTTON
+{
+	font-weight: 700;
+	background: transparent;
+	border: 1px solid #777;
+	border-bottom: 3px solid #777;
+	border-radius: 2pt;
+	margin-bottom: 3px;
+}
+INPUT:focus
+{
+	border-color: black;
+}
+INPUT:hover,
+SELECT:hover,
+BUTTON:hover
+{
+	color: #000;
+	border-color: #07F;
+	border-bottom: 3px solid #00F;
+}
+
+BUTTON:active
+{
+	top: 3px;
+	border-color: #000;
+	background: #07F;
+	position: relative;
+	margin-bottom: 5px !important;
+	border-bottom-width: 1px;
+}
+legend,
+fieldset
+{
+	display: block;
+	min-width: 700px;
+	border-radius: 2pt;
+	border: 1px solid silver;
+}
+	H1,H2,H3 {
+		margin: 40pt 0 20pt; padding: 0;
+		position: relative;
+		padding-left: 12pt !important;
+	}
+	h1{
+		border-bottom: 4px solid #444;
+	}
+	h2{
+		border-bottom: 1px solid #777;
+	}
+	h3{
+		border-bottom: 1px solid #AAA;
+	}
+
+	ul#current-settings > li > ul
+	{
+		list-style-type: none;
+		list-style: none;
+	}
