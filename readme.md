@@ -67,8 +67,14 @@ Until further updates, there are a few hard-coded areas that need to be changed 
 - `[clone-path]\source\CalibreData\source\models\bookrequest.cs`  
   static string libroot is hard-coded to a directory that doesn't even exist on my machine.  You can set it as you like.  
   Note: within the MVC-web-app's startup operation, we over-ride this with a call to `BookRequest.SetRoot([your-lib-root])`.
-- I had cloned https://github.com/subtlepatterns/SubtlePatterns into the mvc-book-app assets dir:  
-  `[this-repo]\source\Books\Assets\subtlepatterns`
+- in the MVC-book-app ApiController
+- the books mvc-web-app
+    - See [ApiController.cs#L22](https://github.com/tfwio/CalibreDataNET/blob/13522a3c1f528ecce26271536267ba7f64e99ba6/source/Books/Source/Controllers/ApiController.cs#L22).  If the dir-name isn't listed here, it will be blocked.  We can't just let anything work—as I still hadn't automated this!
+    - In the same file above there are a number of hard-coded elements here that one might wish to replace with their own key-words (libraries), yet note that it would be blocked by the afforementioned statement... I'm thinking I was integrating the `conf.json` when I stopped working on this a few years back.
+    - also, (fyi) I had cloned https://github.com/subtlepatterns/SubtlePatterns into the mvc-book-app assets dir:  
+      `[this-repo]\source\Books\Assets\subtlepatterns`
+
+progress of 20170601 — There used to be a few system.cor3 (core) and system.cor3.data dependencies for abstracting some if the image and data utilities used---I've simply migrated to the common-library `CalibreData.csproj` which had apparently been missing.  I still hadn't fully wrapped my mind around WT# all the things I was thinking were... There was a SPA (single-page javascript application) lying around somewhere that accessed this for its data and images were local to that —was pretty spiffy ;) Looks like I'll get it up here along with some more cleanup in the future.
 
 
-
+No particular license heuristic is applied ;)
