@@ -44,14 +44,23 @@ namespace CalibreData.Models
 				).Replace("\\","/");
 			return null;
 		}
-		
+
 		#endregion
-		
+
+		/// <summary>
+		/// library root path
+		/// <br/>
+		/// this directory should contain a metadata.db
+		/// </summary>
 		public DirectoryInfo LibraryPath {
 			get { return libraryPath; }
 			set { libraryPath = value; }
 		} DirectoryInfo libraryPath = null;
-		
+		/// <summary>
+		/// the currently selected library path or sub-path.
+		/// <br/>
+		/// it is not the full path.  Rather, its the name of the selected library or sub-directory as contained in the ROOT_LIBRARY_PATH (not that its titled that).
+		/// </summary>
 		public string SubPath {
 			get { return subPath; }
 			set { subPath = value; }
