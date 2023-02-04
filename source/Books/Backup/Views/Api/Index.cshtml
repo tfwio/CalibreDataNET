@@ -1,0 +1,55 @@
+﻿@using BookApp.Controllers
+@{
+ViewBag.Title = "CalibreNET — " + Html.ViewData["lib"];
+}
+@*http://haacked.com/archive/2011/01/06/razor-syntax-quick-reference.aspx/*@
+<header>
+<h1>@Html.ViewData["lib"]</h1>
+</header>
+
+<!--
+<h1>Heading Level-1</h1>
+<h2>Heading Level-2</h2>
+<h3>Heading Level-3</h3>
+<p></p>
+-->
+
+<p><strong>
+This is the CalibreDataNET ApiController.
+</strong></p>
+
+
+@*Html.Partial("StrategyOutline")*@
+@*Html.Partial("GeneratorStrategy")*@
+
+<hr/>
+<h1>Image Utilities</h1>
+<h2>Image Generation</h2>
+@*http://symbolcodes.tlt.psu.edu/web/codehtml.html*@
+
+
+<h2>Configuration Options</h2>
+
+@Html.Partial("ImageUtils")
+
+<p>
+The original (simple, hard-coded) version of this application revolved
+around a code-generation that <strong>has not been automated</strong>
+in a number of ways making it so that the end-user (you or I) would
+have to write up some lines of code.
+</p>
+<p>
+The hard-coded strategy.
+</p>
+<p>
+The ActionLinks below, are hard-coded into the application,
+through the source-code generation methodology.
+</p>
+
+<p>
+There are not currently any configuration options.
+This is an outline for future configuration settings that are to be implemented.
+</p>
+
+
+

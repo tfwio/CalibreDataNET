@@ -64,18 +64,7 @@ namespace TestData
       Console.Write("\nPress any key to continue . . . ");
       Console.ReadKey(true);
     }
-    
-    static void Help() // not yet
-    {
-      var helpMsg = @"
-TestData.exe [-p] [full_path_to_metadata.db]
-
-where...
-  -p: Pause after completion (also writes ""press a key to continue"")
-
-";
-    }
-    
+        
     public static void Main(string[] args)
     {
       var o = default_console_options;

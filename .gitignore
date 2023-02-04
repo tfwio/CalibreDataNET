@@ -1,10 +1,6 @@
 /projects/.nuget
 /projects/calibre-info.userprefs
-/source/Books/obj
-/source/Books/bin
-/source/TestData/obj
-/source/TestData/bin
-/source/CalibreData/obj
-/source/CalibreData/bin
-/source/CopyCalibreCovers/bin
-/source/CopyCalibreCovers/obj
+/**/obj
+/**/bin
+/**/.vs
+/projects/packages

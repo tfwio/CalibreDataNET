@@ -1,20 +1,24 @@
 ﻿{
 "libroot":"e:/serve/book",
 "imgroot":"e:/serve/book-cover",
-"dirs":[
-	"Artwork",
-	"Channel9",
-	"Codex",
-	"Dev",
-	"Do",
-	"Ebook",
-	"Fiction",
-	"Free Masonic",
-	"Images",
-	"Mag",
-	"Mathematics",
-	"New",
-	"Non-Fiction",
-	"Theology",
-	"Unicorns and Rainbows"
-]}
+	"dirs": [
+		"Artwork",
+		"Channel9",
+		"Codex",
+		"Dev",
+		"Do",
+		"Ebook",
+		"Fiction",
+		"Free Masonic",
+		"Images",
+		"Mag",
+		"Mathematics",
+		"Mediumship and Divination",
+		"Music",
+		"New",
+		"Non-Fiction",
+		"She",
+		"SSOC",
+		"Theology",
+		"Unicorns and Rainbows"
+	]}

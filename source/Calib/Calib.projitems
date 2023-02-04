@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>3239fab8-b0dd-480e-8732-6b9e90ef04c0</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>
+    </Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)cor3-files\DataAbstract.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)cor3-files\DICT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)cor3-files\GraphicsExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)cor3-files\point.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)cor3-files\SQLiteDb.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)cor3-files\SQLiteQuery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)cor3-files\XLog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)cor3-files\XLogEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\CalibreImageWriter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\CalibreImageWriterOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\ImageExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\ImagePathToJSON.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\LibNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\LibraryCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\MinMax.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\Models\Book.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\Models\BookListMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\Models\BookManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\Models\BookModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\Models\BookRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\Models\InfoModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Source\ProgressEventArgs.cs" />
+  </ItemGroup>
+</Project>

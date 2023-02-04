@@ -9,10 +9,10 @@ using CalibreData.Models;
 
 namespace CopyCalibreCovers
 {
-	/// <summary>
-	/// Description of MainForm.
-	/// </summary>
-	public partial class MainForm : Form
+  /// <summary>
+  /// Description of MainForm.
+  /// </summary>
+  public partial class MainForm : Form
 	{
 		#region Variables
 		const string test_info_filter = @"Path info:
@@ -20,10 +20,14 @@ libroot: {0}
 imgroot: {1}
 ignore[array]: {2}
 dirs[array]: {3}";
+
+
+
 		static readonly Newtonsoft.Json.JsonSerializerSettings JsonConfig =
 			new Newtonsoft.Json.JsonSerializerSettings()
 		{
 		};
+
 		public CoverSettings Options = new CoverSettings();
 		
 		static FolderBrowserDialog FBD = new FolderBrowserDialog(){
@@ -37,43 +41,52 @@ dirs[array]: {3}";
 				"—In this directory, we will create a sub-directory containing generated images.’",
 			ShowNewFolderButton=true
 		};
-		#endregion
+    #endregion
+    void InitializeJSON()
+    {
+      string data = System.IO.File.ReadAllText("conf.json");
 
+      var model = Newtonsoft.Json.JsonConvert
+
+				.DeserializeObject(
+					data,
+					typeof(InfoModel),
+					JsonConfig
+
+				) as InfoModel;
+
+      Options.Libraries = new LibraryCollection(
+        model.libroot,
+        model.imgroot,
+        model.ignore,
+        model.dirs
+      );
+
+      // List<string> data1 = new List<string>(model.dirs);
+      // data1.Insert(0, "dirs-start");
+      // data1.Add("dirs-terminal");
+      // MessageBox.Show(
+      //   string.Format(test_info_filter, model.libroot, model.imgroot, model.ignore, string.Join("\", \"", data1.ToArray())), "testing");
+
+
+    }
+    
 		public MainForm()
 		{
 			InitializeComponent();
-			
-			string data = System.IO.File.ReadAllText("conf.json");
 
-			var model = Newtonsoft.Json.JsonConvert.DeserializeObject(
-				data, typeof(InfoModel), JsonConfig)
-				as InfoModel;
-			
-      List<string> data1 = new List<string>(model.dirs);
-      data1.Insert(0,"dirs-start");
-      data1.Add("dirs-terminal");
-			MessageBox.Show(string.Format(test_info_filter, model.libroot, model.imgroot, model.ignore, string.Join("\", \"", data1.ToArray())),"testing");
-			
-			
-			Options.Libraries = new LibraryCollection(
-			  model.libroot,
-			  model.imgroot,
-			  model.ignore,
-			  model.dirs
-			);
-			
-			tbInputPath.ApplyDragDrop();
-			tbImageRootPath.ApplyDragDrop();
-			cbProcessAffinity.DataSource = Enum.GetValues(typeof(System.Threading.ThreadPriority));
-			
-			BindingsReset();
+      tbInputPath.ApplyDragDrop();
+      tbImageRootPath.ApplyDragDrop();
+      cbProcessAffinity.DataSource = Enum.GetValues(typeof(System.Threading.ThreadPriority));
+
+      BindingsReset();
 		}
 
 		#region Process
 		void GotProgress ( object sender, ProgressEventArgs args)
 		{
-			progressBar1.Value = args.MinMax.MinValue+1;
-			label1.Text = string.Format("{0:##0}%",args.MinMax.PercentValue*100);
+      progressBar1.Value = args.MinMax.MinValue + 1;
+      label1.Text = string.Format("{0:##0}%", args.MinMax.PercentValue * 100);
 		}
 
 		void GotComplete ( object sender, EventArgs args)
@@ -129,17 +142,24 @@ dirs[array]: {3}";
 			this.tbImageRootPath.DataBindings.Clear();
 			this.comboBox1.DataSource = null;
 		}
+
 		void BindingsReset()
-		{
-			comboBox1.DataSource= Options.Libraries.Children;
+    {
+      InitializeJSON();
+
+      comboBox1.DataSource = Options.Libraries.Children;
+
+
 			this.tbInputPath.DataBindings.Add(new Binding("Text",Options.Libraries.BaseLibrary,"FullName"));
 			this.tbImageRootPath.DataBindings.Add(new Binding("Text",Options.Libraries.BaseImages,"FullName"));
 		}
+
 		void BtnRefreshBindings(object sender, EventArgs e)
 		{
 			BindingsClear();
 			BindingsReset();
 		}
+
 		#endregion
 
     // not adequate

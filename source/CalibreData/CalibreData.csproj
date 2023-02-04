@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectGuid>{CB391A7F-B162-4464-903D-63B90E9C2DEE}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>CalibreData</RootNamespace>
     <AssemblyName>CalibreData</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <NoWin32Manifest>False</NoWin32Manifest>
     <SignAssembly>True</SignAssembly>
@@ -91,39 +91,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cor3-files\DataAbstract.cs" />
-    <Compile Include="cor3-files\DICT.cs" />
-    <Compile Include="cor3-files\GraphicsExtension.cs" />
-    <Compile Include="cor3-files\point.cs" />
-    <Compile Include="cor3-files\SQLiteDb.cs" />
-    <Compile Include="cor3-files\SQLiteQuery.cs" />
-    <Compile Include="cor3-files\XLog.cs" />
-    <Compile Include="cor3-files\XLogEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\CalibreImageWriter.cs" />
-    <Compile Include="Source\CalibreImageWriterOptions.cs" />
-    <Compile Include="Source\ImageExtensions.cs" />
-    <Compile Include="Source\ImagePathToJSON.cs" />
-    <Compile Include="Source\LibNode.cs" />
-    <Compile Include="Source\LibraryCollection.cs" />
-    <Compile Include="Source\MinMax.cs" />
-    <Compile Include="Source\Models\Book.cs" />
-    <Compile Include="Source\Models\BookListMode.cs" />
-    <Compile Include="Source\Models\BookManager.cs" />
-    <Compile Include="Source\Models\BookModel.cs" />
-    <Compile Include="Source\Models\BookRequest.cs" />
-    <Compile Include="Source\Models\InfoModel.cs" />
-    <Compile Include="Source\ProgressEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="cor3-files" />
-    <Folder Include="Source\Models" />
-    <Folder Include="Source" />
-  </ItemGroup>
+  <ItemGroup />
+  <Import Project="..\Calib\Calib.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\projects\packages\System.Data.SQLite.Core.1.0.105.1\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\projects\packages\System.Data.SQLite.Core.1.0.105.1\build\net45\System.Data.SQLite.Core.targets')" />
 </Project>

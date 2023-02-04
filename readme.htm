@@ -20,13 +20,14 @@ body {
 <!--
 <span class="author">tfwio</span>
 -->
-<span class="date" style='float:right'>2014-07–2017</span>
+<!-- <span class="date" style='float:right'>2014-07–2017</span> -->
+<p class="date" align='center'>2014-07–2017</p>
 </header>
 
 <nav id="TOC">
 <h3>TOC</h3>
 <ul>
-<li><a href="#mvc-webapp-interface-api">MVC WebApp Interface API</a></li>
+<li><a href="#calibrenetblazer-web-app">CalibreNetBlazer Web App</a></li>
 <li><a href="#copycalibrecovers-and-its-config-file">CopyCalibreCovers and its Config-File</a><ul>
 <li><a href="#testapp">TestApp</a></li>
 </ul></li>
@@ -34,16 +35,20 @@ body {
 </ul>
 </nav>
 <p>Here there are a few examples of how to use Calibre’s SQLite3 databases wired up into three basic applications…</p>
-<ol>
+<ol type="1">
 <li><strong>CalibreData</strong>: is the ‘common’ library carries bulk data and image utililty operations/abstractions.</li>
 <li><strong>BookApp</strong> <code>books.csproj</code>: A general MVC-WebApp (DotNet v4.0, MVC v4.0, WebPages v2.0)</li>
 <li><strong>CopyCalibreImages</strong>: A Windows.Forms app which abstracts thumbnails from your Calibre libraries provided a JSON configuration file, <code>conf.json</code>.</li>
 <li>A general <strong>TestApp</strong> simply exists to point one in the right direction when it comes to generating JSON content from the command-line similarly to the way the MVC-web-app does.</li>
 </ol>
-<h1 id="mvc-webapp-interface-api">MVC WebApp Interface API</h1>
-<p>The basic general scope of the MVC app is to provide a JSON response provided specific request syntax so that one can build a SPA (Single Page Application) or some-such. HTTP responses will either be JSON-data mirrored from the respective <code>metadata.db</code> in your e-book library-directory, or a e-book download.</p>
+<p><img src="calibre-info.png" /></p>
+<h1 id="calibrenetblazer-web-app">CalibreNetBlazer Web App</h1>
+<p>There was an ‘original’ project basically provided a single JSON file and generalized concepts “library” and “library collection”. The original app simple provided a JSON API with generally, a single call, perhaps specific to a particular “library” within a “library collecgtion”.</p>
 <p>Before listing the few API, note that this tool expects that you have multiple Calibre book-libraries in paralell to one another in a given ‘root’ directory. That is to say that within <code>[library-root-path]</code>, we may have several sub-directories and each of those sub-directories is a Calibre library.</p>
 <p>If you have only one Calibre e-book library, then just use it’s parent directory as the library-root and configure only the one library.</p>
+<blockquote>
+<p><strong>the following is no longer concurrent with the blazer app at the moment however the project will be built back up to reflect the following.</strong></p>
+</blockquote>
 <ul>
 <li><code>~/api/[category]</code> where <strong>category</strong> is the name of your library (sub-directory)</li>
 <li><code>~/api/book/[category]/[index]/[format]/</code>: This is used to download your book in the provided format. This layer of the API is expected to be generated from our data-set which tells us what book formats are available, the book-id (index) and etc…
@@ -63,16 +68,16 @@ body {
 <li><code>dirs</code>: these are the sub-directories as can be found in <code>lib-root</code> which are allowed to be generated from within the application.</li>
 </ul>
 <p><strong>conf.json example</strong></p>
-<pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
-<span class="dt">&quot;libroot&quot;</span><span class="fu">:</span><span class="st">&quot;e:/serve/book&quot;</span><span class="fu">,</span>
-<span class="dt">&quot;imgroot&quot;</span><span class="fu">:</span><span class="st">&quot;e:/serve/book-cover&quot;</span><span class="fu">,</span>
-<span class="dt">&quot;dirs&quot;</span><span class="fu">:</span><span class="ot">[</span>
-  <span class="st">&quot;Library-One&quot;</span><span class="ot">,</span>
-  <span class="st">&quot;Library-Two&quot;</span><span class="ot">,</span>
-  <span class="st">&quot;Library-Three&quot;</span><span class="ot">,</span>
-  <span class="er">//</span> <span class="er">...</span><span class="ot">,</span>
-  <span class="st">&quot;Library-N&quot;</span>
-<span class="ot">]</span><span class="fu">}</span></code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="dt">&quot;libroot&quot;</span><span class="fu">:</span><span class="st">&quot;e:/serve/book&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="dt">&quot;imgroot&quot;</span><span class="fu">:</span><span class="st">&quot;e:/serve/book-cover&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="dt">&quot;dirs&quot;</span><span class="fu">:</span><span class="ot">[</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="st">&quot;Library-One&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="st">&quot;Library-Two&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="st">&quot;Library-Three&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">  <span class="er">//</span> <span class="er">...</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">  <span class="st">&quot;Library-N&quot;</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="ot">]</span><span class="fu">}</span></a></code></pre></div>
 <h2 id="testapp">TestApp</h2>
 <p>A command-line demo app allows for two little options and may have the following parameters…</p>
 <ul>
@@ -81,38 +86,26 @@ body {
 <li>the last parameter must be the full path to your <code>metadata.db</code> file. Any option before the db file will be ignored if not listed above.</li>
 </ul>
 <h1 id="before-you-compile">BEFORE YOU COMPILE</h1>
+<blockquote>
+<p>this section has become obsolete</p>
+</blockquote>
 <p>Until further updates, there are a few hard-coded areas that need to be changed to suit your Calibre library (location).</p>
 <ul>
 <li>Make sure you modify/update the conf.json file in the main source directory (<code>[clone-path]\source\conf.json</code>).</li>
-<li><code>[clone-path]\source\CalibreData\source\models\bookrequest.cs</code><br /> static string libroot is hard-coded to a directory that doesn’t even exist on my machine. You can set it as you like.<br /> Note: within the MVC-web-app’s startup operation, we over-ride this with a call to <code>BookRequest.SetRoot([your-lib-root])</code>.</li>
+<li><code>[clone-path]\source\CalibreData\source\models\bookrequest.cs</code><br />
+static string libroot is hard-coded to a directory that doesn’t even exist on my machine. You can set it as you like.<br />
+Note: within the MVC-web-app’s startup operation, we over-ride this with a call to <code>BookRequest.SetRoot([your-lib-root])</code>.</li>
 <li>in the MVC-book-app ApiController</li>
 <li>the books mvc-web-app
 <ul>
 <li>See <a href="https://github.com/tfwio/CalibreDataNET/blob/13522a3c1f528ecce26271536267ba7f64e99ba6/source/Books/Source/Controllers/ApiController.cs#L22">ApiController.cs#L22</a>. If the dir-name isn’t listed here, it will be blocked. We can’t just let anything work—as I still hadn’t automated this!</li>
 <li>In the same file above there are a number of hard-coded elements here that one might wish to replace with their own key-words (libraries), yet note that it would be blocked by the afforementioned statement… I’m thinking I was integrating the <code>conf.json</code> when I stopped working on this a few years back.</li>
-<li>also, (fyi) I had cloned <a href="https://github.com/subtlepatterns/SubtlePatterns" class="uri">https://github.com/subtlepatterns/SubtlePatterns</a> into the mvc-book-app assets dir:<br /> <code>[this-repo]\source\Books\Assets\subtlepatterns</code></li>
+<li>also, (fyi) I had cloned <a href="https://github.com/subtlepatterns/SubtlePatterns" class="uri">https://github.com/subtlepatterns/SubtlePatterns</a> into the mvc-book-app assets dir:<br />
+<code>[this-repo]\source\Books\Assets\subtlepatterns</code></li>
 <li>Its fairly important that you’re aware of the following: <a href="https://github.com/tfwio/CalibreDataNET/blob/13522a3c1f528ecce26271536267ba7f64e99ba6/source/Books/Source/Controllers/ApiController.cs#L156">ApiController.cs#L156</a>. Depending on how this is implemented, you may wish to modify the array indexes on <a href="https://github.com/tfwio/CalibreDataNET/blob/13522a3c1f528ecce26271536267ba7f64e99ba6/source/Books/Source/Controllers/ApiController.cs#L171">line 171</a>. Of course, the line-numbers might be modified in future revisions but you get the idea.</li>
 </ul></li>
 </ul>
 <p>progress of 20170601 — There used to be a few system.cor3 (core) and system.cor3.data dependencies for abstracting some if the image and data utilities used—I’ve simply migrated to the common-library <code>CalibreData.csproj</code> which had apparently been missing. I still hadn’t fully wrapped my mind around WT# all the things I was thinking were… There was a SPA (single-page javascript application) lying around somewhere that accessed this for its data and images were local to that —was pretty spiffy ;) Looks like I’ll get it up here along with some more cleanup in the future.</p>
 <p>No particular license heuristic is applied ;)</p>
 </body>
-</html><style>
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-</style>
+</html>
